@@ -8,6 +8,7 @@
 #include "db.h"
 #include "shell.h"
 
+
 int Command_depends(apr_pool_t *p, const char *path)
 {
   FILE *in = NULL;
@@ -119,6 +120,11 @@ int Command_build(apr_pool_t *p, const char *url, const char *configure_opts,
 
   rc = Shell_exec(MAKE_SH, "OPTS", make_opts, NULL);
   check(rc == 0, "Failed to build");
+
+  rc = Shell_exec(INSTALL_SH,
+       "TARGET", install_opts ? install_opts: "install",
+      NULL);
+  check(rc == 0, "Failed to install");
 
   rc = Shell_exec(CLEANUP_SH, NULL);
   check(rc == 0, "Failed to cleanup after build");

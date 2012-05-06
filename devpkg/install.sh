@@ -2,22 +2,22 @@
 
 cd /tmp
 
-curl -L -O http://download.nextag.com/apache//apr/apr-1.4.5.tar.gz
+curl -L -O http://archive.apache.org/dist/apr/apr-1.4.6.tar.gz
 
-tar -xzvf apr-1.4.5.tar.gz
-cd apr-1.4.5
+tar -xzvf apr-1.4.6.tar.gz
+cd apr-1.4.6
 
 ./configure
 make
 sudo make install
 
 cd /tmp
-rm -rf apr-1.4.5 arp-1.4.5.tar.gz
+rm -rf apr-1.4.6 arp-1.4.6.tar.gz
 
-curl -L -O http://download.nextag.com/apache//apr/apr-util-1.3.12.tar.gz
+curl -L -O http://archive.apache.org/dist/apr/apr-util-1.4.1.tar.gz
 
-tar -xzvf apr-util-1.3.12.tar.gz
-cd apr-util-1.3.12
+tar -xzvf apr-util-1.4.1.tar.gz
+cd apr-util-1.4.1
 
 ./configure --with-apr=/usr/local/apr
 
@@ -25,4 +25,4 @@ make
 sudo make install
 
 cd /tmp
-rm -rf apr-utl-1.3.12* apr-1.4.5*
+rm -rf apr-util-1.4.1* apr-1.4.6*

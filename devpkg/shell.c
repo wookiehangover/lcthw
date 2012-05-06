@@ -5,12 +5,15 @@
 int Shell_exec(Shell template, ...)
 {
   apr_pool_t *p = NULL;
-  apr_pool_create(&p, NULL);
-
+  int rc = -1;
+  apr_status_t rv = APR_SUCCESS;
   va_list argp;
   const char *key = NULL;
   const char *arg = NULL;
   int i = 0;
+
+  rv = apr_pool_create(&p, NULL);
+  check(rv == APR_SUCCESS, "Failed to create pool.");
 
   va_start(argp, template);
 
@@ -28,9 +31,14 @@ int Shell_exec(Shell template, ...)
     }
   }
 
-  int rc = Shell_run(p, &template);
-  apr_pool_create(&p, NULL);
+  rc = Shell_run(p, &template);
+  apr_pool_destroy(p);
   va_end(argp);
+  return rc;
+error:
+  if(p) {
+    apr_pool_destroy(p);
+  }
   return rc;
 }
 
@@ -82,7 +90,7 @@ Shell GIT_SH = {
 };
 
 Shell TAR_SH = {
-  .dir = "/tmp/pkg/build",
+  .dir = "/tmp/pkg-build",
   .exe = "tar",
   .args = {"tar", "-xzf", "FILE", "--strip-components", "1", NULL}
 };

@@ -3,7 +3,6 @@
 #include <apr_getopt.h>
 #include <apr_strings.h>
 #include <apr_lib.h>
-#include <apr_strings.h>
 
 #include "dbg.h"
 #include "db.h"
@@ -63,7 +62,8 @@ int main(int argc, const char const *argv[])
 
       case 'B':
         request = COMMAND_BUILD;
-        url = optarg; break;
+        url = optarg;
+        break;
     }
   }
 
